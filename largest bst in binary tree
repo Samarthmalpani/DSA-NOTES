@@ -1,0 +1,30 @@
+
+class bst
+{ public:
+    int min;
+    int max;
+    int size;
+    
+    bst(int max,int min,int size)
+    {
+        this->min=min;
+        this->max=max;
+        this->size=size;
+    }
+};
+bst checkforbst(TreeNode<int>*root)
+{
+    if(root==NULL)
+        return bst(INT_MIN,INT_MAX,0);
+    auto l=checkforbst(root->left);
+    auto r=checkforbst(root->right);
+    if(l.max < root->data && root->data < r.min)
+    {
+        return bst(max(root->data,r.max),min(root->data , l.min),(l.size+r.size)+1);
+    }
+    return bst(INT_MAX,INT_MIN,max(l.size,r.size));
+}
+int largestBST(TreeNode<int>* root) 
+{
+    return checkforbst(root).size;
+}
