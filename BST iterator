@@ -1,0 +1,34 @@
+# DSA-NOTES
+class BSTIterator {
+public:
+    stack<TreeNode *>st;
+    BSTIterator(TreeNode* root) {
+        if(root==NULL)
+            return;
+        pushall(root);
+    }
+    
+    int next() {
+        TreeNode * t=st.top();
+        st.pop();
+        pushall(t->right);
+        return t->val;
+        
+    }
+    
+    bool hasNext() {
+        if(st.empty())
+            return false;
+        return true;
+        
+        
+    }
+    void pushall(TreeNode *root)
+    {
+        
+        while(root!=NULL)
+        {st.push(root);
+         root=root->left;}
+        return;
+    }
+};
